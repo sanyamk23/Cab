@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Ride</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .ride-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .ride-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .ride-info p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ride Accepted</h1>
+    <p>Ride ID: {{ ride_request_id }}</p>
+    <p>Customer Name : {{ride_request.customer}}</p>
+    {% comment %} <p>Driver Name : {{ride_request.driver}}</p> {% endcomment %}
+    <p>Pickup Location : {{ride_request.pickup_location}}</p>
+    <p>Dropoff Location : {{ride_request.dropoff_location}}</p>
+</body>
+</html>

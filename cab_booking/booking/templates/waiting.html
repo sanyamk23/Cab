@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="10">
+    <title>Waiting for Driver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Waiting for ride request response...</h1>
+    <script>
+        setTimeout(function(){
+            location.reload()
+        },5000)
+        {% if ride_request %}
+            {% if ride_request.status == 'accepted' %}
+                window.location.href = "{% url 'accepted_page' %}";
+            {% elif ride_request.status == 'rejected' %}
+                window.location.href = "{% url 'rejected_page' %}";
+            {% endif %}
+        {% endif %}
+    </script>
+</body>
+</html>

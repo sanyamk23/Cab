@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard</title>
+    {% comment %} <script src="{% static 'migrations/driver_dashboard.js' %}"></script> {% endcomment %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-accept {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-reject {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Driver Dashboard</h1>
+        <h2>New Ride Requests</h2>
+        <ul>
+        {% for ride_request in ride_requests %}
+            <li>
+                
+                    <p>Customer: {{ ride_request.customer }}</p>
+                    <h3>{{ ride_request.pickup_location }} - {{ ride_request.dropoff_location }}</h3>
+                    <div  class="action-buttons">
+                    <form method="post" action="{% url 'accept_ride_request' ride_request.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-accept" type="submit">Accept</button>
+                    </form>
+                    <form method="post" action="{% url 'reject_ride_request' ride_request.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-reject" type="submit">Reject</button>
+                    </form>
+                    </div>
+            </li>
+        {% endfor %}
+        </ul>
+        <ul>
+            <h2>Other Pending Ride Requests</h2>
+            {% for ride_request in ride_request1 %}
+                <li>
+                    
+                        <p>Customer: {{ ride_request.customer }}</p>
+                        <h3>{{ ride_request.pickup_location }} - {{ ride_request.dropoff_location }}</h3>
+                        <div  class="action-buttons">
+                        <form method="post" action="{% url 'accept_ride_request' ride_request.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-accept" type="submit">Accept</button>
+                        </form>
+                        <form method="post" action="{% url 'reject_ride_request' ride_request.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-reject" type="submit">Reject</button>
+                        </form>
+                        </div>
+                </li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+    
+    {% if new_request_generated %}
+        <script>
+        window.onload = function() {
+            alert('New ride request generated!');
+        };
+        </script>
+    {% endif %}
+</body>
+{% comment %} <script>
+    window.onload = function() {
+        alert('New ride request generated!');
+    };
+</script>  {% endcomment %}
+<script>
+    setTimeout(function(){
+      location.reload()
+    },10000)
+</script>
+</html>
